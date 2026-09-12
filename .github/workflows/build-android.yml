@@ -1,0 +1,27 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Android APK
+        id: build
+        uses: mlm-games/godot-build-action@v1
+        with:
+          EXPORT_PRESET_NAME: "Android"
+          GODOT_VER: ""            # empty = auto-detect latest stable 4.x
+          DEBUG_MODE: "true"       # debug build = no signing keystore needed
+          EXPORT_DIR: builds
+
+      - name: Upload APK as downloadable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WellWaterFetcher-apk
+          path: builds/

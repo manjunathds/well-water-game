@@ -14,20 +14,46 @@ stamina for the day.
    scene is the main scene — `Main.tscn` is already set, so just press play.
 4. Click with your mouse where the orange "TAP" button is to test the whole loop.
 
-## How to export it to an Android APK
+## Get a playable .apk WITHOUT installing anything (recommended)
+
+This project already includes a GitHub Actions workflow
+(`.github/workflows/build-android.yml`) that builds a debug `.apk` for you in
+the cloud — you never need to install Godot, the Android SDK, or any build
+tools yourself.
+
+1. Create a free account at https://github.com if you don't have one.
+2. Create a new repository (any name, e.g. `well-water-game`), then use the
+   "Add file > Upload files" button on the repo page to drag in every file
+   and folder from this zip (including the hidden `.github` folder — if
+   GitHub's uploader hides it, use `git` locally instead, or the GitHub
+   Desktop app, which shows hidden folders).
+3. Commit the files to the `main` branch.
+4. Go to the **Actions** tab of your repo. A workflow called "Build Android
+   APK" should start automatically (or click "Run workflow" to trigger it
+   manually).
+5. Wait a few minutes for it to finish (green checkmark).
+6. Click into the finished run → scroll to **Artifacts** → download
+   `WellWaterFetcher-apk`. Unzip it — that's your installable `.apk`.
+7. Copy the `.apk` to your Android phone (email, cloud drive, USB, etc.),
+   tap it, and allow "install from unknown sources" if prompted.
+
+This produces a **debug** build, which is perfect for testing on your own
+device. If you later want to publish on the Play Store, you'll need a
+signed release build (Godot's docs cover that:
+https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html).
+
+## How to export it locally instead (if you'd rather install Godot yourself)
 
 1. In Godot: **Editor > Manage Export Templates** → download the templates that match
    your Godot version (one-time setup).
 2. Install the **Android SDK** (Android Studio is the easiest way to get it) and set
    the SDK path in **Editor > Editor Settings > Export > Android**.
-3. In the project: **Project > Export...** → **Add** → **Android**.
-4. Set a package name (e.g. `com.yourname.wellwater`), then click **Export Project**
+3. In the project: **Project > Export...** — the Android preset is already
+   configured (`export_presets.cfg`), so you can just click **Export Project**
    and choose a location for the `.apk`.
-5. For a real device: enable Developer Mode + USB debugging on your phone, plug it
+4. For a real device: enable Developer Mode + USB debugging on your phone, plug it
    in, and use `adb install yourgame.apk`, or just copy the APK to the phone and
    open it (allow "install from unknown sources").
-6. For the Play Store, you'll eventually need to export an `.aab` and sign it with
-   a release keystore — Godot's docs walk through this: https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html
 
 ## What's already built
 
